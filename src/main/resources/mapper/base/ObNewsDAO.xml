@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.geekzone.oxygenBar.base.dao.ObNewsDAO">
+  <resultMap id="BaseResultMap" type="cn.geekzone.oxygenBar.base.entity.ObNews">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="cover_pic" jdbcType="VARCHAR" property="coverPic" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="collect_count" jdbcType="INTEGER" property="collectCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="remarks1" jdbcType="VARCHAR" property="remarks1" />
+    <result column="remarks2" jdbcType="VARCHAR" property="remarks2" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.geekzone.oxygenBar.base.entity.ObNews">
+    <result column="article" jdbcType="LONGVARCHAR" property="article" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, summary, cover_pic, read_count, like_count, collect_count, create_time, 
+    update_time, `type`, `status`, remarks1, remarks2
+  </sql>
+  <sql id="Blob_Column_List">
+    article
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ob_news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ob_news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews" useGeneratedKeys="true">
+    insert into ob_news (title, summary, cover_pic, 
+      read_count, like_count, collect_count, 
+      create_time, update_time, `type`, 
+      `status`, remarks1, remarks2, 
+      article)
+    values (#{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{coverPic,jdbcType=VARCHAR}, 
+      #{readCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{collectCount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{remarks1,jdbcType=VARCHAR}, #{remarks2,jdbcType=VARCHAR}, 
+      #{article,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews" useGeneratedKeys="true">
+    insert into ob_news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="coverPic != null">
+        cover_pic,
+      </if>
+      <if test="readCount != null">
+        read_count,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+      <if test="collectCount != null">
+        collect_count,
+      </if>
+        create_time,
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="remarks1 != null">
+        remarks1,
+      </if>
+      <if test="remarks2 != null">
+        remarks2,
+      </if>
+      <if test="article != null">
+        article,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPic != null">
+        #{coverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="readCount != null">
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        #{collectCount,jdbcType=INTEGER},
+      </if>
+      now(),
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remarks1 != null">
+        #{remarks1,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks2 != null">
+        #{remarks2,jdbcType=VARCHAR},
+      </if>
+      <if test="article != null">
+        #{article,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews">
+    update ob_news
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPic != null">
+        cover_pic = #{coverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        collect_count = #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+        update_time = now(),
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remarks1 != null">
+        remarks1 = #{remarks1,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks2 != null">
+        remarks2 = #{remarks2,jdbcType=VARCHAR},
+      </if>
+      <if test="article != null">
+        article = #{article,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews">
+    update ob_news
+    set title = #{title,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      cover_pic = #{coverPic,jdbcType=VARCHAR},
+      read_count = #{readCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      collect_count = #{collectCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      `type` = #{type,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      remarks1 = #{remarks1,jdbcType=VARCHAR},
+      remarks2 = #{remarks2,jdbcType=VARCHAR},
+      article = #{article,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews">
+    update ob_news
+    set title = #{title,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      cover_pic = #{coverPic,jdbcType=VARCHAR},
+      read_count = #{readCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      collect_count = #{collectCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      `type` = #{type,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      remarks1 = #{remarks1,jdbcType=VARCHAR},
+      remarks2 = #{remarks2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByCondition" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ob_news 
+    where 1=1 
+    <if test="title != null">
+        and title LIKE CONCAT('%',#{title,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="summary != null">
+        and summary = #{summary,jdbcType=VARCHAR}
+      </if>
+      <if test="coverPic != null">
+        and cover_pic = #{coverPic,jdbcType=VARCHAR}
+      </if>
+      <if test="readCount != null">
+        and read_count = #{readCount,jdbcType=INTEGER}
+      </if>
+      <if test="likeCount != null">
+        and like_count = #{likeCount,jdbcType=INTEGER}
+      </if>
+      <if test="collectCount != null">
+        and collect_count = #{collectCount,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="remarks1 != null">
+        and remarks1 = #{remarks1,jdbcType=VARCHAR}
+      </if>
+      <if test="remarks2 != null">
+        and remarks2 = #{remarks2,jdbcType=VARCHAR}
+      </if>
+      <if test="article != null">
+        and article = #{article,jdbcType=LONGVARCHAR}
+      </if>
+      order by create_time desc 
+      <if test="offset != null">
+        limit #{offset},#{pageSize}
+      </if>
+  </select>
+  
+  <select id="selectCountByCondition" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews" resultType="java.lang.Integer">
+    select 
+    count(id) 
+    from ob_news 
+    where 1=1 
+    <if test="title != null">
+        and title LIKE CONCAT('%',#{title,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="summary != null">
+        and summary = #{summary,jdbcType=VARCHAR}
+      </if>
+      <if test="coverPic != null">
+        and cover_pic = #{coverPic,jdbcType=VARCHAR}
+      </if>
+      <if test="readCount != null">
+        and read_count = #{readCount,jdbcType=INTEGER}
+      </if>
+      <if test="likeCount != null">
+        and like_count = #{likeCount,jdbcType=INTEGER}
+      </if>
+      <if test="collectCount != null">
+        and collect_count = #{collectCount,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="remarks1 != null">
+        and remarks1 = #{remarks1,jdbcType=VARCHAR}
+      </if>
+      <if test="remarks2 != null">
+        and remarks2 = #{remarks2,jdbcType=VARCHAR}
+      </if>
+      <if test="article != null">
+        and article = #{article,jdbcType=LONGVARCHAR}
+      </if>
+  </select>
+  
+  <select id="selectNewsByReadCount" parameterType="cn.geekzone.oxygenBar.base.entity.ObNews" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ob_news 
+    where 1=1 
+    <if test="title != null">
+        and title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="summary != null">
+        and summary = #{summary,jdbcType=VARCHAR}
+      </if>
+      <if test="coverPic != null">
+        and cover_pic = #{coverPic,jdbcType=VARCHAR}
+      </if>
+      <if test="readCount != null">
+        and read_count = #{readCount,jdbcType=INTEGER}
+      </if>
+      <if test="likeCount != null">
+        and like_count = #{likeCount,jdbcType=INTEGER}
+      </if>
+      <if test="collectCount != null">
+        and collect_count = #{collectCount,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="remarks1 != null">
+        and remarks1 = #{remarks1,jdbcType=VARCHAR}
+      </if>
+      <if test="remarks2 != null">
+        and remarks2 = #{remarks2,jdbcType=VARCHAR}
+      </if>
+      <if test="article != null">
+        and article = #{article,jdbcType=LONGVARCHAR}
+      </if>
+      order by read_count desc limit 0,7
+  </select>
+  
+</mapper>

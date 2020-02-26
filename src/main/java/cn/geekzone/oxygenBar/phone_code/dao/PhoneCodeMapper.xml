@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.geekzone.oxygenBar.phone_code.dao.PhoneCodeMapper">
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="e.id">
+		insert into user_code
+		(phone, code, operation, create_time,be_used)
+		values
+		(#{e.phone}, #{e.code}, #{e.operation}, now(),0)
+	</insert>
+    
+    <select id="getLastPhoneCode" parameterType="cn.geekzone.oxygenBar.phone_code.entity.PhoneCode" resultType="cn.geekzone.oxygenBar.phone_code.entity.PhoneCode">
+        select phone,code,operation,create_time createTime,be_used beUsed  
+        from user_code 
+        where phone = #{e.phone} and operation = #{e.operation} 
+        order by id desc 
+        LIMIT 0, 1
+    </select>
+
+    <update id="updatePhoneCodeUsed">
+        update user_code 
+        set be_used = 1 
+        where id = #{id}
+    </update>
+	
+</mapper>
